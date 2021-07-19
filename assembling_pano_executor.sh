@@ -16,7 +16,7 @@ pre_exec=$2
 		echo > meta.txt
 		popd
 	done
-} || {
+} || { # TODO: check --pre-exec option
 	for dir in $(find "$work_path" -type d -depth 1)
 	do
 		mkpano "$dir";
