@@ -3,15 +3,12 @@
 
 #
 ## Simple usage:
-## -depth 1 - VERY IMPORTANT if dir with *.jpg contains other dir with meta info!
-# find ./Export_13_07_21 -type d -depth 1 | while read dir
-# do
-# 	mkpano "$dir";
-# done
-#
+## apexec /path/to/working/dir
+# . is default path to working dir for apexec!
+# assembling_pano_executor.sh
 
 # TODO: mkdir with temp JPGs sources!!!
-# FIXME: choose options loop NOT WORKING if execute script as in example above!!!
+# FIXME: not open panorama jpg files while reassembling!!!
 
 if [[ $# -eq 0 ]]; then
 	echo "Path to working directory not passed!";
@@ -25,45 +22,55 @@ pushd $work_path;
 
 # Check if *_Panorama files exist already
 exist=$(ls | grep _Panorama | wc -l);
-echo $exist;
 add_prefix=0;
+overwrite=0;
 if [[ $exist -eq 1 ]]; then
-	echo "Panorama exists! Check options\nWhat do you wish to do: (A)bort, (R)eassemble with different filename, (O)verwrite";
+	echo "Panorama ${work_path} exists! Check options below.\nWhat do you wish to do: (S)kip, (R)eassemble with different filename, (O)verwrite";
 	read answer;
     case "$answer" in
-        [Aa]* ) exit -2; break;;
-        [Rr]* ) add_prefix=1; break;;
-        [Oo]* ) echo "Overwriting $full_proj_name"; break;;
+        [Ss]* ) echo "Skipping $full_proj_name";exit -2; ;;
+        [Rr]* ) echo "Reassembling $full_proj_name";add_prefix=1; ;;
+        [Oo]* ) echo "Overwriting $full_proj_name";overwrite=1; ;;
         # [Ss]* ) echo "add_prefix=0"; break;;
-        # * ) echo "Please, choose from existing options!";;
+        * ) echo "Please, choose from existing options!";;
     esac
 fi
+echo "Working..";
 
-# pto_gen -o "$proj_name" *.jpg
+[ -f meta.txt -a -z meta.txt ] && fov="--fov "$(cat meta.txt)
 
-# cpfind --multirow -o "$proj_name" "$proj_name"
+pto_gen -o "$fov" --projection 0 "$proj_name" *.jpg
 
-# celeste_standalone -i "$proj_name" -o "$proj_name"
+cpfind --multirow -o "$proj_name" "$proj_name"
 
-# cpclean -o "$proj_name" "$proj_name"
+celeste_standalone -i "$proj_name" -o "$proj_name"
 
-# autooptimiser -a -l -s -m -o "$proj_name" "$proj_name"
+cpclean -o "$proj_name" "$proj_name"
 
-# pano_modify --canvas=AUTO --crop=AUTO -o "$proj_name" "$proj_name"
+autooptimiser -a -l -s -m -o "$proj_name" "$proj_name"
 
-# nona -o "out" "$proj_name"
+pano_modify --canvas=AUTO --crop=AUTO -o "$proj_name" "$proj_name"
 
-# n=0;
-# imgs="";
-# for f in *.tif
-# do
-# 	n=$((n + 1));
-# 	imgs+=( "$f" );
-# done
+nona -o "out" "$proj_name"
+
+n=0;
+imgs="";
+for f in *.tif
+do
+	n=$((n + 1));
+	imgs+=( "$f" );
+done
 
 # echo "$imgs";
-
-# enblend -o "$(basename $work_path)"_Panorama.jpg $imgs
+[[ "$add_prefix" -eq 0 ]] && {
+	echo Creating/replacing panorama "$(basename $work_path)"_Panorama.jpg;
+	enblend -o "$(basename $work_path)"_Panorama.jpg $imgs
+}
+[[ "$add_prefix" -eq 1 ]] && {
+	prefix=$(date "+%s");
+	echo Reassebling panorama "$(basename $work_path)"_"$prefix"_Panorama.jpg
+	enblend -o "$(basename $work_path)"_"$prefix"_Panorama.jpg $imgs
+}
 popd
 
 
