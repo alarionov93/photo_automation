@@ -18,3 +18,4 @@
 ## and then use
 	~ $ apexec /path/to/working/dir
 ## to init walk by dirs with jpg sources.
+###### *removed option '-m' from autooptimiser command because exposition correction is done the wrong way*
