@@ -16,4 +16,4 @@ git tag "$base_v"$((ver_num+1))
 git push --tags
 echo $((ver_num+1)) >> version.txt
 echo "That's \xf0\x9f\xa4\x98!"
-echo "Let's drunk some vodka with \xf0\x9f\x8d\xba!"
+echo "Let's drink some vodka with \xf0\x9f\x8d\xba!"
