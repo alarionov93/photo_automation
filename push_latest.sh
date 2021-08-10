@@ -11,9 +11,13 @@ read msg
 git commit -a -m "$msg ..and fix some \xf0\x9f\x92\xa9"
 echo "..and fix some \xf0\x9f\x92\xa9"
 git push
-ver_num=$(cat version.txt | tail -1)
-git tag "$base_v"$((ver_num+1))
-git push --tags
-echo $((ver_num+1)) >> version.txt
-echo "That's \xf0\x9f\xa4\x98!"
-echo "Let's drink some vodka with \xf0\x9f\x8d\xba!"
+[ $? -eq 0 ] && {
+	ver_num=$(cat version.txt | tail -1)
+	git tag "$base_v"$((ver_num+1))
+	git push --tags
+	echo $((ver_num+1)) >> version.txt
+	echo "That's \xf0\x9f\xa4\x98!"
+	echo "Let's drink some vodka with \xf0\x9f\x8d\xba!"
+} || {
+	echo "[ERROR]: git push command was unsuccessful!"
+}
