@@ -29,3 +29,6 @@
 ###### *--canvas=70%: sometimes `out*` files are too large* -> need to set canvas by hand.
 ###### *--fov option is not working correctly* -> let hugin (pto_gen) set it.
 ###### *--center panorama not working, too* -> if center can not be determined (e.g. panorama is stretched and moved to up or down), open .pto file and set pano to center by hands, then run apexec or mkpano with `--blend-only` option.
+### !!!ACHTUNG!!!
+##### *Usage and developing of this scripts should fit the main concepts:*
+1. Make sure that any photos with .tiff extension is temporary and could be removed.
