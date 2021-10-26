@@ -34,5 +34,6 @@
 ###### *--fov option is not working correctly* -> let hugin (pto_gen) set it.
 ###### *--center panorama not working, too* -> if center can not be determined (e.g. panorama is stretched and moved to up or down), open .pto file and set pano to center by hands, then run apexec or mkpano with `--blend-only` option.
 ### !!!ACHTUNG!!!
-##### *Usage and developing of this scripts should fit the main concepts:*
-1. Make sure that any photos with .tiff extension is temporary and could be removed.
+##### *Usage and developing of this scripts should fit the main concepts:* -> aaaa
+1. Make sure that any photos with .tif extension is temporary and could be removed.
+2. Temporary files example names *3332-3335_Panorama__.jpg* *3332-3335_Panorama.tif* *IMG-3310_ps.jpg_vid.mp4* they should NOT be synced with photo storage! Thus, all results of processing by hand should be saved with DIFFERENT names!
