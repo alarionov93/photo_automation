@@ -7,7 +7,7 @@ mkdir /Volumes/Data/ProdCopies"$year";
 #/bin/zsh sync_photos.sh
 
 lst=()
-find /Volumes/Data/PhotoDevNew/Export"$year" -name "*_ps*.jpg" -o -name "*Panorama*.jpg" | while read x
+find /Volumes/Data/PhotoDevNew/Export"$year" -name "*_ps*.jpg" -o -name "*Panorama*.jpg" -o -name "*_vid*" | while read x
 do 
 	nn=$( echo "$x" | tr ' ' '_' )
 	mv "$x" "$nn" 2> /dev/null

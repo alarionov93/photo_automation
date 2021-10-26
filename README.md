@@ -4,6 +4,7 @@
 #### Name patterns:
 1. `*Panorama*.jpg` 
 2. `*_ps*.jpg`
+3. `*_vid*`
 
 ###### *upd: files with spaces are renaming now ' ' -> '_'*
 
@@ -14,7 +15,11 @@
 ## Simple usage:
 	~ $ dpmv /path/to/working/dir
 	~ $ apexec /path/to/working/dir
+		# or  -> ~ $ mkpano /path/to/working/dir/pano-dir0 --blend-only # after *.pto corrections
 	~ $ mkjpgs /path/to/working/dir
+	~ $ phdev_upd
+		# and -> ~ $ python3 make_scale_video.py /path/to/working/dir/pano-dir0/img_panorama.jpg
+	~ $ collect_production
 
 ### **--pre-exec option used for generating files with info about field of view for every source image, and create backup dirs with sources.**
 #### *'.' is default path to working dir for apexec!*
@@ -37,3 +42,6 @@
 ##### *Usage and developing of this scripts should fit the main concepts:* -> aaaa
 1. Make sure that any photos with .tif extension is temporary and could be removed.
 2. Temporary files example names *3332-3335_Panorama__.jpg* *3332-3335_Panorama.tif* *IMG-3310_ps.jpg_vid.mp4* they should NOT be synced with photo storage! Thus, all results of processing by hand should be saved with DIFFERENT names!
+
+##### TODOs:
+1. Create script, removing duplicates of photos that were synced to *0_hdd1TB* directly after *Lr export*, before union by panorama folders and executing *dpmv* script!
