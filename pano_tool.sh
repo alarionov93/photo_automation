@@ -43,7 +43,7 @@ echo "Working..";
 	autooptimiser -a -l -s -o "$proj_name" "$proj_name";
 	# [ -f meta.txt -a -z meta.txt ] && fovn="--fov="$(cat meta.txt);
 	# --fov=$(cat meta.txt)
-	pano_modify --center -s --canvas=70% --output-exposure=AUTO -o "$proj_name" "$proj_name";
+	pano_modify --center -s --canvas=40% --output-exposure=AUTO -o "$proj_name" "$proj_name";
 	#
 }
 
