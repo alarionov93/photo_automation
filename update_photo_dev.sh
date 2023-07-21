@@ -5,14 +5,14 @@ echo "Waiting for cron job to mount volumes..."
 sleep 67
 
 ssh alarionov-home [ -d /media/alex/0_hdd1TB/lost+found ] && {
-	rsync -avzu --progress --exclude={'*.tif','backup/','*_vid*','*__.jpg','.DS_Store'} /Volumes/Data/PhotoDevNew/ alarionov-home:/media/alex/0_hdd1TB/PhotosLib/2021-2022
+	rsync -avzu --progress --exclude={'*.tif','backup/','*_vid*','*__.jpg','.DS_Store'} /Users/sanya/Data/PhotoDevNew/ alarionov-home:/media/alex/0_hdd1TB/PhotosLib/2021-2022
 	# TODO: here exclude all files, that have _posted duplicates. 
 	# Sync only posted - if _posted file has a duplicate without _posted -> remove it from sync list
-	for dir in $(ls /Volumes/Data | grep ProdCopies)
+	for dir in $(ls /Users/sanya/Data | grep ProdCopies)
 		do
-		echo Syncing /Volumes/Data/"$dir";
+		echo Syncing /Users/sanya/Data/"$dir";
 		# TODO --exclude NOT WORKING!
-		rsync -avzu --progress --exclude actual/ /Volumes/Data/"$dir" alarionov-home:/media/alex/0_hdd1TB/PhotosLib;
+		rsync -avzu --progress --exclude actual/ /Users/sanya/Data/"$dir" alarionov-home:/media/alex/0_hdd1TB/PhotosLib;
 		done
 } || {
 	echo "[ ERROR ]: 0_hdd1TB is not mounted!"
